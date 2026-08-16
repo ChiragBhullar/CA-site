@@ -1,0 +1,18 @@
+{% extends "site/base.html" %}
+{% block title %}Page not found — KARS &amp; Co{% endblock %}
+{% block content %}
+<section class="section" style="padding-block:clamp(4rem,10vw,7rem)">
+  <div class="shell shell--narrow" style="text-align:center">
+    <p class="eyebrow eyebrow--center">Error 404</p>
+    <h1 class="t-h1">We couldn't find that page.</h1>
+    <p class="lede" style="margin:1.25rem auto 2rem;max-width:46ch">
+      The link may be out of date. Try our services, or get in touch and we'll point you the right way.
+    </p>
+    <p style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn--primary" href="{% url 'profile_site:home' %}">Back to home</a>
+      <a class="btn btn--ghost" href="{% url 'profile_site:services' %}">Our services</a>
+    </p>
+  </div>
+</section>
+{% endblock %}
+{% block cta %}{% endblock %}

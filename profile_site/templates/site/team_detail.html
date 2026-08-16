@@ -1,0 +1,99 @@
+{% extends "site/base.html" %}
+{% load static %}
+
+{% block title %}{{ member.name }} — {{ member.designation }}, K A R S &amp; Co{% endblock %}
+{% block description %}{{ member.name }}, {{ member.designation }} at K A R S &amp; Co. {{ member.focus }}.{% endblock %}
+
+{% block content %}
+{% include "site/partials/_page_hero.html" with page_title=member.name page_sub=member.focus crumb_parent="Our team" crumb_parent_url="/team/" %}
+
+<section class="section">
+  <div class="shell">
+    <div class="profile">
+      <aside class="profile__side">
+        {% if member.photo %}
+          <img class="profile__photo" src="{{ member.photo.url }}" alt="{{ member.name }}">
+        {% elif member.static_photo %}
+          <img class="profile__photo" src="{% static member.static_photo %}" alt="{{ member.name }}">
+        {% else %}
+          <div class="profile__mono">{{ member.initials }}</div>
+        {% endif %}
+
+        <ul class="profile__facts">
+          <li><span class="k">Role</span><span class="v">{{ member.designation }}</span></li>
+          {% if member.experience_years %}<li><span class="k">Experience</span><span class="v">{{ member.experience_years }}+ years</span></li>{% endif %}
+          {% if member.location %}<li><span class="k">Based in</span><span class="v">{{ member.location }}</span></li>{% endif %}
+          {% if member.email %}<li><span class="k">Email</span><span class="v"><a href="mailto:{{ member.email }}">{{ member.email }}</a></span></li>{% endif %}
+          {% if member.phone %}<li><span class="k">Phone</span><span class="v"><a href="tel:{{ member.phone }}">{{ member.phone }}</a></span></li>{% endif %}
+        </ul>
+
+        <p style="margin-top:1.5rem">
+          <a class="btn btn--primary" href="{% url 'profile_site:contact' %}" style="width:100%;justify-content:center">
+            Get in touch {% include "site/partials/_icons.html" with icon="arrow" %}
+          </a>
+        </p>
+      </aside>
+
+      <div>
+        <p class="eyebrow">Brief profile</p>
+        <div class="prose">
+          {% for para in member.bio_paragraphs %}<p>{{ para }}</p>{% endfor %}
+        </div>
+
+        {% if member.skill_list %}
+        <div class="spec">
+          <h2 class="spec__title">Key skills</h2>
+          <ul class="ticks ticks--two">
+            {% for skill in member.skill_list %}<li>{{ skill }}</li>{% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        {% if member.sector_list %}
+        <div class="spec">
+          <h2 class="spec__title">Sector exposure</h2>
+          <ul class="ticks ticks--two">
+            {% for sector in member.sector_list %}<li>{{ sector }}</li>{% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        {% if member.qualification %}
+        <div class="spec">
+          <h2 class="spec__title">Education &amp; professional qualification</h2>
+          <p style="color:var(--ink-2);margin:0">{{ member.qualification }}</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if colleagues %}
+<section class="section section--tint">
+  <div class="shell">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">Also at the firm</p>
+      <h2 class="t-h2">Meet the rest of the team</h2>
+    </div>
+    <div class="people">
+      {% for other in colleagues %}
+      <a class="person-card" href="{{ other.get_absolute_url }}">
+        <div class="person-card__media">
+          {% if other.photo %}<img src="{{ other.photo.url }}" alt="{{ other.name }}" loading="lazy">
+          {% elif other.static_photo %}<img src="{% static other.static_photo %}" alt="{{ other.name }}" loading="lazy">
+          {% else %}<div class="person-card__mono">{{ other.initials }}</div>{% endif %}
+        </div>
+        <div class="person-card__body">
+          <h3 class="person-card__name">{{ other.name }}</h3>
+          <p class="person-card__role">{{ other.designation }}</p>
+          <p class="person-card__focus">{{ other.focus }}</p>
+          <span class="link-arrow">View profile {% include "site/partials/_icons.html" with icon="arrow" %}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

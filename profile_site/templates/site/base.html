@@ -1,0 +1,171 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}K A R S &amp; Co — Chartered Accountants, Delhi NCR{% endblock %}</title>
+<meta name="description" content="{% block description %}K A R S &amp; Co is an ICAI-registered chartered accountancy firm in Delhi NCR offering audit and assurance, taxation, risk advisory, internal audit and corporate finance services.{% endblock %}">
+<meta name="theme-color" content="#0E2E36">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'site/css/style.css' %}">
+<style>:root { --hero-img: url("{% static 'site/img/skyline.jpg' %}"); }</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="topbar">
+  <div class="topbar__inner">
+    <p class="topbar__reg">Registered with <strong>ICAI</strong> &amp; <strong>RBI</strong> · Delhi NCR &amp; North India</p>
+    <div class="topbar__links">
+      <a href="tel:+919990941988">{% include "site/partials/_icons.html" with icon="phone" %} +91 99909 41988</a>
+      <a href="mailto:caanujsarav@gmail.com">{% include "site/partials/_icons.html" with icon="mail" %} caanujsarav@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header__inner">
+    <a class="brand" href="{% url 'profile_site:home' %}">
+      <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+        <g stroke-width="3.4" stroke-linecap="round">
+          <path d="M24 6v36" stroke="#14545F"/>
+          <path d="M6 24h36" stroke="#2E9AA5"/>
+          <path d="M11.3 11.3l25.4 25.4" stroke="#C08A3E"/>
+          <path d="M36.7 11.3L11.3 36.7" stroke="#7FC5CC"/>
+        </g>
+        <circle cx="24" cy="24" r="4.4" fill="#0E2E36"/>
+      </svg>
+      <span>
+        <span class="brand__name">K A R S &amp; Co</span>
+        <span class="brand__kind">Chartered Accountants</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      <a class="nav__link {% if nav == 'about' %}is-active{% endif %}" href="{% url 'profile_site:about' %}">About</a>
+      <div class="nav__item">
+        <a class="nav__link {% if nav == 'services' %}is-active{% endif %}" href="{% url 'profile_site:services' %}">
+          Services <span class="nav__caret">{% include "site/partials/_icons.html" with icon="caret" %}</span>
+        </a>
+        <ul class="nav__panel">
+          {% for s in nav_services %}<li><a href="{{ s.get_absolute_url }}">{{ s.title }}</a></li>{% endfor %}
+          <li class="nav__panel-all"><a href="{% url 'profile_site:services' %}">All services &amp; industries</a></li>
+        </ul>
+      </div>
+      <a class="nav__link {% if nav == 'clients' %}is-active{% endif %}" href="{% url 'profile_site:clients' %}">Clients</a>
+      <a class="nav__link {% if nav == 'team' %}is-active{% endif %}" href="{% url 'profile_site:team' %}">Our Team</a>
+      {% if has_insights %}<a class="nav__link {% if nav == 'insights' %}is-active{% endif %}" href="{% url 'profile_site:insights' %}">Insights</a>{% endif %}
+      <a class="nav__link {% if nav == 'contact' %}is-active{% endif %}" href="{% url 'profile_site:contact' %}">Contact</a>
+    </nav>
+
+    <a class="btn btn--primary header__cta" href="{% url 'profile_site:contact' %}">
+      Start an enquiry {% include "site/partials/_icons.html" with icon="arrow" %}
+    </a>
+
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <a href="{% url 'profile_site:about' %}">About</a>
+    <a href="{% url 'profile_site:services' %}">Services</a>
+    <div class="mobile-nav__sub">
+      {% for s in nav_services %}<a href="{{ s.get_absolute_url }}">{{ s.title }}</a>{% endfor %}
+    </div>
+    <a href="{% url 'profile_site:clients' %}">Clients</a>
+    <a href="{% url 'profile_site:team' %}">Our Team</a>
+    {% if has_insights %}<a href="{% url 'profile_site:insights' %}">Insights</a>{% endif %}
+    <a href="{% url 'profile_site:contact' %}">Contact</a>
+    <a class="btn btn--primary" href="{% url 'profile_site:contact' %}">Start an enquiry</a>
+  </nav>
+</header>
+
+<main id="main">
+  {% block content %}{% endblock %}
+</main>
+
+{% block cta %}
+<section class="cta-band">
+  <div class="cta-band__inner">
+    <div>
+      <h2 class="t-h2">Let's talk about your requirement</h2>
+      <p>Tell us what you need — audit, tax, a compliance review or something less defined. A partner will come back to you, usually within one working day.</p>
+    </div>
+    <div class="cta-band__actions">
+      <a class="btn btn--brass" href="{% url 'profile_site:contact' %}">Start an enquiry {% include "site/partials/_icons.html" with icon="arrow" %}</a>
+      <a class="btn btn--light" href="tel:+919990941988">Call +91 99909 41988</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="brand__name">K A R S &amp; Co</span>
+        <span class="brand__kind">Chartered Accountants</span>
+        <p class="footer__about">
+          A professional chartered accountancy firm registered under the aegis of The Institute of
+          Chartered Accountants of India, serving clients across Delhi NCR and North India since 2019.
+        </p>
+      </div>
+
+      <div>
+        <h4>Firm</h4>
+        <ul>
+          <li><a href="{% url 'profile_site:about' %}">About us</a></li>
+          <li><a href="{% url 'profile_site:team' %}">Our team</a></li>
+          <li><a href="{% url 'profile_site:clients' %}">Clients</a></li>
+          {% if has_insights %}<li><a href="{% url 'profile_site:insights' %}">Insights</a></li>{% endif %}
+          <li><a href="{% url 'profile_site:contact' %}">Contact us</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Services</h4>
+        <ul>
+          {% for s in nav_services|slice:":6" %}<li><a href="{{ s.get_absolute_url }}">{{ s.title }}</a></li>{% endfor %}
+          <li><a href="{% url 'profile_site:services' %}">View all</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Get in touch</h4>
+        <p class="footer__addr">
+          <b>Noida — head office</b>
+          14th Floor, 14112, Gaur City Mall,<br>Noida Extension, Uttar Pradesh 201301
+        </p>
+        <ul>
+          <li><a href="tel:+919990941988">+91 99909 41988</a></li>
+          <li><a href="mailto:caanujsarav@gmail.com">caanujsarav@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <p>&copy; {% now "Y" %} K A R S &amp; Co. All rights reserved.</p>
+      <p>Noida · Ghaziabad · Delhi</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var burger = document.querySelector('.burger');
+  var menu = document.getElementById('mobile-nav');
+  if (burger && menu) {
+    burger.addEventListener('click', function () {
+      var open = menu.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+})();
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

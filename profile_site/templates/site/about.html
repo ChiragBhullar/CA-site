@@ -1,0 +1,162 @@
+{% extends "site/base.html" %}
+{% load static %}
+
+{% block title %}About Us — K A R S &amp; Co, Chartered Accountants{% endblock %}
+{% block description %}K A R S &amp; Co was incorporated in 2019 and is registered with ICAI and the RBI. Over twenty professionals serving clients across Delhi NCR and North India.{% endblock %}
+
+{% block content %}
+{% include "site/partials/_page_hero.html" with page_title="About the firm" page_sub="Incorporated in 2019 to serve Delhi NCR, now working across North India directly and through associates." %}
+
+<section class="section">
+  <div class="shell">
+    <div class="split">
+      <div>
+        <p class="eyebrow">Who we are</p>
+        <h2 class="t-h2">A young firm with senior experience</h2>
+        <div class="prose" style="margin-top:1.5rem">
+          <p>
+            K A R S &amp; Co is a professional chartered accountancy firm registered under the aegis of
+            The Institute of Chartered Accountants of India. The firm has been registered with ICAI
+            since inception and is also registered with the Reserve Bank of India. Registration with
+            the Comptroller and Auditor General of India, the supreme audit body, is in process.
+          </p>
+          <p>
+            We are well equipped to deliver solutions to the complex challenges faced by Indian
+            organisations across the public and private sectors. We bring a combination of business,
+            functional and technical knowledge that allows clients to better align their business
+            objectives and strategies with the needs of a competitive market.
+          </p>
+          <p>
+            The practice is a group of more than twenty young professionals serving assurance
+            services, taxation, corporate financing, internal audit, IFSC and process drafting. Our
+            major partners each carry five or more years of large accounting firm experience serving
+            multinational corporations.
+          </p>
+        </div>
+      </div>
+      <div class="split__media">
+        <img src="{% static 'site/img/skyline.jpg' %}" alt="City skyline at dusk" loading="lazy" style="aspect-ratio:4/5;object-fit:cover">
+        <div class="split__badge"><b>20+</b><span>Professionals</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--dark section--tight">
+  <div class="shell">
+    <div class="figures">
+      {% for figure in key_figures %}
+      <div class="figure">
+        <p class="figure__value">{{ figure.value }}</p>
+        <p class="figure__label">{{ figure.label }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="shell">
+    <div class="section-head">
+      <p class="eyebrow">How we work</p>
+      <h2 class="t-h2">A professional approach to service delivery</h2>
+      <p>We have built the learning from a decade of risk advisory, internal audit, tax and advisory,
+         programme assurance training and specialist audit support into how we respond to client needs.</p>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar__icon">{% include "site/partials/_icons.html" with icon="risk" %}</span>
+        <h3 class="t-h3">Root cause, not error count</h3>
+        <p>We do not go looking for gaps to list. We work through discussions, case studies and
+           practical workshops to find why a process fails, then fix it at that point.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__icon">{% include "site/partials/_icons.html" with icon="governance" %}</span>
+        <h3 class="t-h3">Anchored at senior management</h3>
+        <p>Engagements are held at the level where decisions are actually made, so findings translate
+           into changes rather than reports that sit on a shelf.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__icon">{% include "site/partials/_icons.html" with icon="people" %}</span>
+        <h3 class="t-h3">The right team in the right place</h3>
+        <p>Staffing is matched to sector and problem — relevant industry knowledge and deep functional
+           expertise, with open and proactive communication throughout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">What we stand for</p>
+      <h2 class="t-h2">Our values</h2>
+    </div>
+    <div class="values">
+      {% for value in values %}
+      <div class="value">
+        <span class="value__icon">{% include "site/partials/_icons.html" with icon=value.icon %}</span>
+        <h3>{{ value.name }}</h3>
+        {% if value.description %}<p>{{ value.description }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="shell">
+    <div class="split">
+      <div>
+        <p class="eyebrow">Where we work</p>
+        <h2 class="t-h2">Presence across North and West India</h2>
+        <p class="lede" style="margin-top:1rem">
+          Cities where we are present directly and through associates.
+        </p>
+        <ul class="chips" style="margin-top:1.75rem">
+          {% for city in cities %}<li>{{ city.name }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h3 class="t-h3" style="margin-bottom:1.25rem">Our offices</h3>
+        {% for office in offices %}
+        <div class="contact-card">
+          {% if office.is_primary %}<span class="contact-card__flag">Head office</span>{% endif %}
+          <h3>{{ office.city }}</h3>
+          <p>{{ office.address|linebreaksbr }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if team %}
+<section class="section">
+  <div class="shell">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">Leadership</p>
+      <h2 class="t-h2">Right person, right place, right job</h2>
+    </div>
+    <div class="people">
+      {% for member in team %}
+      <a class="person-card" href="{{ member.get_absolute_url }}">
+        <div class="person-card__media">
+          {% if member.photo %}<img src="{{ member.photo.url }}" alt="{{ member.name }}" loading="lazy">
+          {% elif member.static_photo %}<img src="{% static member.static_photo %}" alt="{{ member.name }}" loading="lazy">
+          {% else %}<div class="person-card__mono">{{ member.initials }}</div>{% endif %}
+        </div>
+        <div class="person-card__body">
+          <h3 class="person-card__name">{{ member.name }}</h3>
+          <p class="person-card__role">{{ member.designation }}</p>
+          <p class="person-card__focus">{{ member.focus }}</p>
+          <span class="link-arrow">View profile {% include "site/partials/_icons.html" with icon="arrow" %}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

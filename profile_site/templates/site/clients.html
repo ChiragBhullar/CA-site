@@ -1,0 +1,53 @@
+{% extends "site/base.html" %}
+
+{% block title %}Clients &amp; Industries — K A R S &amp; Co{% endblock %}
+{% block description %}Engagements our partners have led, spanning listed companies, large Indian corporates, multinationals and government undertakings.{% endblock %}
+
+{% block content %}
+{% include "site/partials/_page_hero.html" with page_title="Clients & industries" page_sub="Companies where our partners have worked as team leader, across listed corporates, multinationals and government undertakings." %}
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <p class="eyebrow">Major engagements</p>
+      <h2 class="t-h2">Global &amp; large client portfolio</h2>
+    </div>
+    <div class="roster">
+      {% for client in major_clients %}
+      <div class="roster__cell">
+        <span class="roster__name">{{ client.name }}</span>
+        {% if client.listing %}<span class="roster__note">{{ client.listing }}</span>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if other_clients %}
+<section class="section section--tint">
+  <div class="shell">
+    <div class="section-head">
+      <p class="eyebrow">Also on our books</p>
+      <h2 class="t-h2">Other key clients</h2>
+    </div>
+    <ul class="name-list">
+      {% for client in other_clients %}<li>{{ client.name }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <p class="eyebrow">Industry expertise</p>
+      <h2 class="t-h2">Segments we serve</h2>
+      <p>We believe in quality service delivery, and over a professional career of eighteen years and
+         more we have worked across every one of these segments.</p>
+    </div>
+    <ul class="chips">
+      {% for segment in segments %}<li>{{ segment.name }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}

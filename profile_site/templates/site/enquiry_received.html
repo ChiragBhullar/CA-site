@@ -1,0 +1,23 @@
+{% extends "site/base.html" %}
+
+{% block title %}Enquiry received — K A R S &amp; Co{% endblock %}
+{% block description %}Your enquiry has reached K A R S &amp; Co. A partner will respond shortly.{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-block:clamp(4rem,10vw,7rem)">
+  <div class="shell shell--narrow" style="text-align:center">
+    <p class="eyebrow eyebrow--center">Enquiry received</p>
+    <h1 class="t-h1">Thank you — it's with us.</h1>
+    <p class="lede" style="margin:1.25rem auto 2rem;max-width:46ch">
+      Your enquiry has been logged and sent to the partners. Someone will get back to you,
+      usually within one working day.
+    </p>
+    <p style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn--primary" href="{% url 'profile_site:home' %}">Back to home</a>
+      <a class="btn btn--ghost" href="tel:+919990941988">Call +91 99909 41988</a>
+    </p>
+  </div>
+</section>
+{% endblock %}
+
+{% block cta %}{% endblock %}

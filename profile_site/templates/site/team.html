@@ -1,0 +1,31 @@
+{% extends "site/base.html" %}
+{% load static %}
+
+{% block title %}Our Team — K A R S &amp; Co, Chartered Accountants{% endblock %}
+{% block description %}The partners and practice leads at K A R S &amp; Co, with backgrounds in statutory audit, taxation, risk advisory and corporate compliance.{% endblock %}
+
+{% block content %}
+{% include "site/partials/_page_hero.html" with page_title="Our team" page_sub="Right person, right place, right job. Our partners bring large-firm experience across listed companies and multinationals." %}
+
+<section class="section">
+  <div class="shell">
+    <div class="people">
+      {% for member in team %}
+      <a class="person-card" href="{{ member.get_absolute_url }}">
+        <div class="person-card__media">
+          {% if member.photo %}<img src="{{ member.photo.url }}" alt="{{ member.name }}" loading="lazy">
+          {% elif member.static_photo %}<img src="{% static member.static_photo %}" alt="{{ member.name }}" loading="lazy">
+          {% else %}<div class="person-card__mono">{{ member.initials }}</div>{% endif %}
+        </div>
+        <div class="person-card__body">
+          <h2 class="person-card__name">{{ member.name }}</h2>
+          <p class="person-card__role">{{ member.designation }}{% if member.experience_years %} · {{ member.experience_years }}+ years{% endif %}</p>
+          <p class="person-card__focus">{{ member.focus }}</p>
+          <span class="link-arrow">View profile {% include "site/partials/_icons.html" with icon="arrow" %}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

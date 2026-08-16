@@ -1,0 +1,48 @@
+{% extends "site/base.html" %}
+
+{% block title %}{{ service.title }} — K A R S &amp; Co{% endblock %}
+{% block description %}{{ service.summary }}{% endblock %}
+
+{% block content %}
+{% include "site/partials/_page_hero.html" with page_title=service.title page_sub=service.summary crumb_parent="Services" crumb_parent_url="/services/" %}
+
+<section class="section">
+  <div class="shell">
+    <div class="profile">
+      <div>
+        <div class="prose">
+          {% for para in service.intro_paragraphs %}<p>{{ para }}</p>{% endfor %}
+        </div>
+
+        {% if service.deliverable_list %}
+        <div class="spec">
+          <h2 class="spec__title">What this covers</h2>
+          <ul class="ticks ticks--two">
+            {% for item in service.deliverable_list %}<li>{{ item }}</li>{% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <p style="margin-top:2.5rem">
+          <a class="btn btn--primary" href="{% url 'profile_site:contact' %}?service={{ service.slug }}">
+            Enquire about {{ service.title }} {% include "site/partials/_icons.html" with icon="arrow" %}
+          </a>
+        </p>
+      </div>
+
+      <aside>
+        <div class="contact-card">
+          <h3>Other services</h3>
+          <ul style="list-style:none;margin:1rem 0 0;padding:0">
+            {% for other in other_services %}
+            <li style="padding:.5rem 0;border-bottom:1px solid var(--rule-2)">
+              <a href="{{ other.get_absolute_url }}" style="font-size:.88rem;text-decoration:none">{{ other.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}

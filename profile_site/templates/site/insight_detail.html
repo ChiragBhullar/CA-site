@@ -1,0 +1,41 @@
+{% extends "site/base.html" %}
+
+{% block title %}{{ insight.title }} — K A R S &amp; Co{% endblock %}
+{% block description %}{{ insight.excerpt }}{% endblock %}
+
+{% block content %}
+{% include "site/partials/_page_hero.html" with page_title=insight.title crumb_parent="Insights" crumb_parent_url="/insights/" %}
+
+<section class="section">
+  <div class="shell shell--narrow">
+    <div class="note__meta" style="margin-bottom:2rem">
+      <span class="note__cat">{{ insight.get_category_display }}</span>
+      <span>{{ insight.published_on|date:"d F Y" }}</span>
+    </div>
+    <div class="prose" style="font-size:1.05rem">
+      {% for para in insight.body_paragraphs %}<p>{{ para }}</p>{% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if more %}
+<section class="section section--tint">
+  <div class="shell">
+    <div class="section-head"><p class="eyebrow">Keep reading</p><h2 class="t-h2">More insights</h2></div>
+    <div class="notes">
+      {% for other in more %}
+      <a class="note" href="{{ other.get_absolute_url }}">
+        <div class="note__meta">
+          <span class="note__cat">{{ other.get_category_display }}</span>
+          <span>{{ other.published_on|date:"d M Y" }}</span>
+        </div>
+        <h3 class="note__title">{{ other.title }}</h3>
+        <p class="note__excerpt">{{ other.excerpt }}</p>
+        <span class="link-arrow">Read more {% include "site/partials/_icons.html" with icon="arrow" %}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

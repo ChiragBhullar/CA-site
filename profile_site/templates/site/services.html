@@ -1,0 +1,38 @@
+{% extends "site/base.html" %}
+
+{% block title %}Services — K A R S &amp; Co, Chartered Accountants{% endblock %}
+{% block description %}Audit and assurance, taxation, risk advisory, internal audit, governance, corporate finance, outsourcing and technology advisory from K A R S &amp; Co.{% endblock %}
+
+{% block content %}
+{% include "site/partials/_page_hero.html" with page_title="Our services" page_sub="A single bouquet of services, so a client's professional requirements sit under one roof." %}
+
+<section class="section">
+  <div class="shell">
+    <div class="svc-grid">
+      {% for service in services %}
+      <a class="svc-card" href="{{ service.get_absolute_url }}">
+        <p class="svc-card__num">{{ forloop.counter|stringformat:"02d" }}</p>
+        <span class="svc-card__icon">{% include "site/partials/_icons.html" with icon=service.icon %}</span>
+        <h2 class="svc-card__title">{{ service.title }}</h2>
+        <p class="svc-card__summary">{{ service.summary }}</p>
+        <span class="link-arrow">Read more {% include "site/partials/_icons.html" with icon="arrow" %}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="shell">
+    <div class="section-head">
+      <p class="eyebrow">Industry expertise</p>
+      <h2 class="t-h2">Segments we serve</h2>
+      <p>Over a professional career spanning eighteen years and more, our partners have worked across
+         a wide spread of industry segments.</p>
+    </div>
+    <ul class="chips">
+      {% for segment in segments %}<li>{{ segment.name }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}

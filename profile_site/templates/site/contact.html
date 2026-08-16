@@ -1,0 +1,93 @@
+{% extends "site/base.html" %}
+{% load static %}
+
+{% block title %}Contact Us — K A R S &amp; Co, Chartered Accountants{% endblock %}
+{% block description %}Get in touch with K A R S &amp; Co. Offices in Noida, Ghaziabad and Delhi. We reply to every enquiry, usually within one working day.{% endblock %}
+
+{% block content %}
+{% include "site/partials/_page_hero.html" with page_title="Contact us" page_sub="Tell us what you need. We reply to every enquiry, usually within one working day." %}
+
+<section class="section">
+  <div class="shell">
+    <div class="profile" style="align-items:start">
+      <aside class="profile__side" style="order:2">
+        {% for office in offices %}
+        <div class="contact-card">
+          {% if office.is_primary %}<span class="contact-card__flag">Head office</span>{% endif %}
+          <h3>{{ office.city }}</h3>
+          <p>{{ office.address|linebreaksbr }}</p>
+        </div>
+        {% endfor %}
+
+        <div class="contact-card">
+          <span class="contact-card__flag">Direct line</span>
+          <h3>{% if lead %}{{ lead.name }}{% else %}CA Anuj Kumar{% endif %}</h3>
+          <a href="tel:+919990941988">+91 99909 41988</a>
+          <a href="mailto:caanujsarav@gmail.com">caanujsarav@gmail.com</a>
+        </div>
+      </aside>
+
+      <div style="order:1">
+        {% if messages %}{% for message in messages %}<p class="alert" role="alert">{{ message }}</p>{% endfor %}{% endif %}
+
+        <div class="form-card">
+          <p class="eyebrow">Enquiry form</p>
+          <h2 class="t-h3" style="margin-bottom:1.75rem">Send us the details</h2>
+
+          <form method="post" action="{% url 'profile_site:contact' %}" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="source_page" value="{{ request.path }}">
+
+            {% if form.non_field_errors %}<div class="field__error">{{ form.non_field_errors }}</div>{% endif %}
+
+            <div class="form__row">
+              <p class="field">
+                <label for="{{ form.name.id_for_label }}">Name</label>
+                {{ form.name }}
+                {% if form.name.errors %}<span class="field__error">{{ form.name.errors|striptags }}</span>{% endif %}
+              </p>
+              <p class="field">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}<span class="field__error">{{ form.email.errors|striptags }}</span>{% endif %}
+              </p>
+            </div>
+
+            <div class="form__row">
+              <p class="field">
+                <label for="{{ form.phone.id_for_label }}">Phone</label>
+                {{ form.phone }}
+              </p>
+              <p class="field">
+                <label for="{{ form.organisation.id_for_label }}">Company</label>
+                {{ form.organisation }}
+              </p>
+            </div>
+
+            <p class="field">
+              <label for="{{ form.service_interest.id_for_label }}">What do you need help with?</label>
+              {{ form.service_interest }}
+            </p>
+
+            <p class="field">
+              <label for="{{ form.message.id_for_label }}">Your message</label>
+              {{ form.message }}
+              {% if form.message.errors %}<span class="field__error">{{ form.message.errors|striptags }}</span>{% endif %}
+            </p>
+
+            <div class="pot" aria-hidden="true">
+              <label for="{{ form.website.id_for_label }}">{{ form.website.label }}</label>
+              {{ form.website }}
+            </div>
+
+            <button class="btn btn--primary" type="submit">Send enquiry {% include "site/partials/_icons.html" with icon="arrow" %}</button>
+            <p class="form__note">We use your details only to respond to this enquiry.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block cta %}{% endblock %}

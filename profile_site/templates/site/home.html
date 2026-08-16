@@ -1,0 +1,282 @@
+{% extends "site/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__inner">
+    <p class="eyebrow eyebrow--light">Chartered Accountants · Delhi NCR</p>
+
+    <div class="hero__rotator" id="rotator">
+      <h1 class="hero__line is-on">We see beyond<br>the <em>numbers</em>.</h1>
+      <h1 class="hero__line">Clear answers to<br><em>complex</em> compliance.</h1>
+      <h1 class="hero__line">Big-firm rigour.<br><em>Partner-led</em> attention.</h1>
+    </div>
+
+    <p class="hero__sub">
+      Audit and assurance, taxation, risk advisory and corporate finance for listed companies,
+      large Indian corporates and multinationals — delivered by a team that has led engagements
+      at the top of the profession.
+    </p>
+
+    <div class="hero__actions">
+      <a class="btn btn--brass" href="{% url 'profile_site:services' %}">Explore our services {% include "site/partials/_icons.html" with icon="arrow" %}</a>
+      <a class="btn btn--light" href="{% url 'profile_site:contact' %}">Talk to a partner</a>
+    </div>
+
+    <div class="hero__dots" id="dots" role="tablist" aria-label="Change headline">
+      <button class="hero__dot is-on" type="button" aria-label="Headline 1"></button>
+      <button class="hero__dot" type="button" aria-label="Headline 2"></button>
+      <button class="hero__dot" type="button" aria-label="Headline 3"></button>
+    </div>
+  </div>
+</section>
+
+<div class="creds">
+  <div class="creds__inner">
+    <div class="creds__item">
+      <span class="creds__badge">{% include "site/partials/_icons.html" with icon="shield" %}</span>
+      <span>
+        <p class="creds__label">Registered since inception</p>
+        <p class="creds__value">Institute of Chartered Accountants of India</p>
+      </span>
+    </div>
+    <div class="creds__item">
+      <span class="creds__badge">{% include "site/partials/_icons.html" with icon="bank" %}</span>
+      <span>
+        <p class="creds__label">Also registered with</p>
+        <p class="creds__value">Reserve Bank of India</p>
+      </span>
+    </div>
+    <div class="creds__item">
+      <span class="creds__badge">{% include "site/partials/_icons.html" with icon="clock" %}</span>
+      <span>
+        <p class="creds__label">Registration in process</p>
+        <p class="creds__value">Comptroller &amp; Auditor General of India</p>
+      </span>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="shell">
+    <div class="split">
+      <div>
+        <p class="eyebrow">Who we are</p>
+        <h2 class="t-h2">A multi-disciplinary practice built for scrutiny</h2>
+        <div class="prose" style="margin-top:1.5rem">
+          <p>
+            K A R S &amp; Co was incorporated in 2019 to provide professional services in Delhi NCR.
+            The practice has since expanded across North India, working directly and through
+            associates in nine cities.
+          </p>
+          <p>
+            We are equipped to work on the complex problems Indian organisations face across the
+            public and private sectors, combining business, functional and technical knowledge so
+            clients can align their objectives with what the market actually demands.
+          </p>
+          <p>
+            Our partners each carry five or more years of large-firm experience serving multinational
+            corporations, and the wider team of over twenty professionals covers assurance, taxation,
+            corporate financing, internal audit, IFSC and process drafting.
+          </p>
+        </div>
+        <p style="margin-top:1.75rem">
+          <a class="btn btn--ghost" href="{% url 'profile_site:about' %}">More about the firm {% include "site/partials/_icons.html" with icon="arrow" %}</a>
+        </p>
+      </div>
+
+      <div class="split__media">
+        <img src="{% static 'site/img/skyline.jpg' %}" alt="City skyline at dusk" loading="lazy" width="960" height="504" style="aspect-ratio:4/5;object-fit:cover">
+        <div class="split__badge"><b>2019</b><span>Incorporated</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint section--tight">
+  <div class="shell">
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar__icon">{% include "site/partials/_icons.html" with icon="vision" %}</span>
+        <h3 class="t-h3">Our vision</h3>
+        <p>To deliver expert services that add measurable value to a client's business, and to sustain
+           relationships that outlast any single engagement.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__icon">{% include "site/partials/_icons.html" with icon="goal" %}</span>
+        <h3 class="t-h3">Our goal</h3>
+        <p>To find the root cause of a problem rather than count errors — and to fix it at the point
+           where the process actually fails.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__icon">{% include "site/partials/_icons.html" with icon="people" %}</span>
+        <h3 class="t-h3">Our team</h3>
+        <p>Over twenty professionals, staffed to sector and problem. Relevant industry knowledge and
+           deep functional expertise, not whoever happens to be free.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">What we do</p>
+      <h2 class="t-h2">Our services</h2>
+      <p>A single bouquet of services, so a client's professional requirements sit under one roof —
+         from statutory audit through to transaction support.</p>
+    </div>
+
+    <div class="svc-grid">
+      {% for service in featured_services %}
+      <a class="svc-card" href="{{ service.get_absolute_url }}">
+        <p class="svc-card__num">{{ forloop.counter|stringformat:"02d" }}</p>
+        <span class="svc-card__icon">{% include "site/partials/_icons.html" with icon=service.icon %}</span>
+        <h3 class="svc-card__title">{{ service.title }}</h3>
+        <p class="svc-card__summary">{{ service.summary }}</p>
+        <span class="link-arrow">Read more {% include "site/partials/_icons.html" with icon="arrow" %}</span>
+      </a>
+      {% endfor %}
+    </div>
+
+    <p style="text-align:center;margin-top:2.5rem">
+      <a class="btn btn--ghost" href="{% url 'profile_site:services' %}">See all services {% include "site/partials/_icons.html" with icon="arrow" %}</a>
+    </p>
+  </div>
+</section>
+
+<section class="section section--dark section--tight">
+  <div class="shell">
+    <div class="figures">
+      {% for figure in key_figures %}
+      <div class="figure">
+        <p class="figure__value">{{ figure.value }}</p>
+        <p class="figure__label">{{ figure.label }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="shell">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">What we stand for</p>
+      <h2 class="t-h2">Our values</h2>
+    </div>
+    <div class="values">
+      {% for value in values %}
+      <div class="value">
+        <span class="value__icon">{% include "site/partials/_icons.html" with icon=value.icon %}</span>
+        <h3>{{ value.name }}</h3>
+        {% if value.description %}<p>{{ value.description }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if lead %}
+<section class="section">
+  <div class="shell">
+    <div class="split split--flip">
+      <div class="split__media">
+        {% if lead.photo %}
+        <img src="{{ lead.photo.url }}" alt="{{ lead.name }}" loading="lazy" style="aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.05)">
+        {% elif lead.static_photo %}
+        <img src="{% static lead.static_photo %}" alt="{{ lead.name }}" loading="lazy" style="aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.05)">
+        {% endif %}
+      </div>
+      <div>
+        <p class="eyebrow">Partner spotlight</p>
+        <h2 class="t-h2">{{ lead.name }}</h2>
+        <p style="font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--teal);margin:.5rem 0 1.5rem">
+          {{ lead.designation }} — {{ lead.focus }}
+        </p>
+        <div class="prose">
+          {% for para in lead.bio_paragraphs|slice:":2" %}<p>{{ para }}</p>{% endfor %}
+        </div>
+        <p style="margin-top:1.75rem">
+          <a class="btn btn--ghost" href="{{ lead.get_absolute_url }}">Read full profile {% include "site/partials/_icons.html" with icon="arrow" %}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section section--tint">
+  <div class="shell">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">Track record</p>
+      <h2 class="t-h2">Engagements our partners have led</h2>
+      <p>Major companies where our partners have worked as team leader.</p>
+    </div>
+
+    <div class="roster">
+      {% for client in major_clients %}
+      <div class="roster__cell">
+        <span class="roster__name">{{ client.name }}</span>
+        {% if client.listing %}<span class="roster__note">{{ client.listing }}</span>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <p style="text-align:center;margin-top:2.5rem">
+      <a class="btn btn--ghost" href="{% url 'profile_site:clients' %}">View all clients &amp; industries {% include "site/partials/_icons.html" with icon="arrow" %}</a>
+    </p>
+  </div>
+</section>
+
+{% if latest_insights %}
+<section class="section">
+  <div class="shell">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">Insights</p>
+      <h2 class="t-h2">Latest from the firm</h2>
+    </div>
+    <div class="notes">
+      {% for insight in latest_insights %}
+      <a class="note" href="{{ insight.get_absolute_url }}">
+        <div class="note__meta">
+          <span class="note__cat">{{ insight.get_category_display }}</span>
+          <span>{{ insight.published_on|date:"d M Y" }}</span>
+        </div>
+        <h3 class="note__title">{{ insight.title }}</h3>
+        <p class="note__excerpt">{{ insight.excerpt }}</p>
+        <span class="link-arrow">Read more {% include "site/partials/_icons.html" with icon="arrow" %}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var lines = document.querySelectorAll('#rotator .hero__line');
+  var dots = document.querySelectorAll('#dots .hero__dot');
+  if (lines.length < 2) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var i = 0, timer;
+  function show(n) {
+    lines[i].classList.remove('is-on');
+    if (dots[i]) dots[i].classList.remove('is-on');
+    i = n % lines.length;
+    lines[i].classList.add('is-on');
+    if (dots[i]) dots[i].classList.add('is-on');
+  }
+  function start() { timer = setInterval(function () { show(i + 1); }, 5000); }
+  dots.forEach(function (dot, n) {
+    dot.addEventListener('click', function () { clearInterval(timer); show(n); start(); });
+  });
+  start();
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "site/base.html" %}
+
+{% block title %}Insights — K A R S &amp; Co, Chartered Accountants{% endblock %}
+{% block description %}Notes and updates from K A R S &amp; Co on taxation, audit, regulatory change and advisory.{% endblock %}
+
+{% block content %}
+{% include "site/partials/_page_hero.html" with page_title="Insights" page_sub="Short notes on regulatory change, compliance deadlines and what they mean in practice." %}
+
+<section class="section">
+  <div class="shell">
+    {% if insights %}
+    <div class="notes">
+      {% for insight in insights %}
+      <a class="note" href="{{ insight.get_absolute_url }}">
+        <div class="note__meta">
+          <span class="note__cat">{{ insight.get_category_display }}</span>
+          <span>{{ insight.published_on|date:"d M Y" }}</span>
+        </div>
+        <h2 class="note__title">{{ insight.title }}</h2>
+        <p class="note__excerpt">{{ insight.excerpt }}</p>
+        <span class="link-arrow">Read more {% include "site/partials/_icons.html" with icon="arrow" %}</span>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty">No insights published yet. Add the first one from the admin panel.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
